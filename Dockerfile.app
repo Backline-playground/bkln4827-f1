@@ -1,0 +1,7 @@
+ARG APP_BASE=192.168.65.254:5056/base-a/debian:12.5-slim
+FROM ${APP_BASE}
+ARG JQ_VERSION=1.6
+RUN apt-get update && apt-get install -y --no-install-recommends curl ca-certificates \
+ && curl -fsSL -o /usr/local/bin/jq https://github.com/jqlang/jq/releases/download/jq-${JQ_VERSION}/jq-linux64 \
+ && chmod +x /usr/local/bin/jq && rm -rf /var/lib/apt/lists/*
+CMD ["jq", "--version"]
